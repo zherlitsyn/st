@@ -15,7 +15,7 @@ GTK theme variant selection (in config.h):
 
 Requirements
 ------------
-libxft 2.3.4
+libxft 2.3.4 \
 Fira Code https://github.com/tonsky/FiraCode
 
 Installation
@@ -31,7 +31,7 @@ necessary as root):
     make
     make install
 
-Or on arch-based systems just:
+On arch-based systems just:
 
     makepkg -si
 
