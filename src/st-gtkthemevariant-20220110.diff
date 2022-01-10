@@ -1,0 +1,45 @@
+diff --color -u a/config.def.h b/config.def.h
+--- a/config.def.h	2022-01-10 23:08:15.091091910 +0300
++++ b/config.def.h	2022-01-10 23:09:00.052095108 +0300
+@@ -124,6 +124,7 @@
+ 	"black", /* default background colour */
+ };
+ 
++const char *gtkthemevariant = "dark";
+ 
+ /*
+  * Default colors (colorname index)
+diff --color -u a/x.c b/x.c
+--- a/x.c	2022-01-10 23:08:15.092091910 +0300
++++ b/x.c	2022-01-10 23:09:54.263098964 +0300
+@@ -93,7 +93,7 @@
+ 	Window win;
+ 	Drawable buf;
+ 	GlyphFontSpec *specbuf; /* font spec buffer used for rendering */
+-	Atom xembed, wmdeletewin, netwmname, netwmiconname, netwmpid;
++	Atom xembed, wmdeletewin, netwmname, netwmiconname, netwmpid, gtkthemevariant;
+ 	struct {
+ 		XIM xim;
+ 		XIC xic;
+@@ -859,8 +859,8 @@
+ void
+ xhints(void)
+ {
+-	XClassHint class = {opt_name ? opt_name : termname,
+-	                    opt_class ? opt_class : termname};
++	XClassHint class = {opt_name ? opt_name : "st",
++	                    opt_class ? opt_class : "st"};
+ 	XWMHints wm = {.flags = InputHint, .input = 1};
+ 	XSizeHints *sizeh;
+ 
+@@ -1237,6 +1237,10 @@
+ 	xsel.xtarget = XInternAtom(xw.dpy, "UTF8_STRING", 0);
+ 	if (xsel.xtarget == None)
+ 		xsel.xtarget = XA_STRING;
++
++    xw.gtkthemevariant = XInternAtom(xw.dpy, "_GTK_THEME_VARIANT", False);
++    XChangeProperty(xw.dpy, xw.win, xw.gtkthemevariant, xsel.xtarget, 8,
++                    PropModeReplace, (uchar *)gtkthemevariant, 4);
+ }
+ 
+ int

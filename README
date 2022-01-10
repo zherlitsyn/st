@@ -1,12 +1,22 @@
-st - simple terminal
---------------------
-st is a simple terminal emulator for X which sucks less.
+Fork of the suckless simple terminal (st) with my modifications.
+----------------------------------------------------------------
+[st](https://st.suckless.org/) is a simple terminal emulator for X.
 
+![Example 0](https://github.com/zherlitsyn/st/blob/master/image0.png "Example 0")
+![Example 1](https://github.com/zherlitsyn/st/blob/master/image1.png "Example 1")
+
+Features
+--------
+Ligature support
+Scroll back through terminal output
+GTK theme variant selection (in config.h):
+
+    const char *gtkthemevariant = "dark"; // or "light"
 
 Requirements
 ------------
-In order to build st you need the Xlib header files.
-
+libxft 2.3.4
+Fira Code https://github.com/tonsky/FiraCode
 
 Installation
 ------------
@@ -16,19 +26,13 @@ the /usr/local namespace by default).
 Afterwards enter the following command to build and install st (if
 necessary as root):
 
-    make clean install
+    cd src
+    make patch
+    make
+    make install
 
+Or on arch-based systems just:
 
-Running st
-----------
-If you did not install st with make clean install, you must compile
-the st terminfo entry with the following command:
-
-    tic -sx st.info
+    makepkg -si
 
 See the man page for additional details.
-
-Credits
--------
-Based on Aurélien APTEL <aurelien dot aptel at gmail dot com> bt source code.
-

@@ -27,7 +27,16 @@ x.o: arg.h config.h st.h win.h
 $(OBJ): config.h config.mk
 
 st: $(OBJ)
-	$(CC) -o $@ $(OBJ) $(STLDFLAGS)
+	$(CC) $(OBJ) $(STCFLAGS) $(STLDFLAGS) -o $@
+
+patch:
+	patch -i st-scrollback-20210507-4536f46.diff
+	patch -i st-scrollback-mouse-20191024-a2c479c.diff
+	patch -i st-scrollback-mouse-altscreen-20200416-5703aa0.diff
+	patch -i st-ligatures-scrollback-20210824-0.8.4.diff
+	patch -i st-gtkthemevariant-20220110.diff
+	patch -i st-colortheme-20220110.diff
+	patch -i st-firacode-20220110.diff
 
 clean:
 	rm -f st $(OBJ) st-$(VERSION).tar.gz
@@ -48,6 +57,12 @@ install: st
 	sed "s/VERSION/$(VERSION)/g" < st.1 > $(DESTDIR)$(MANPREFIX)/man1/st.1
 	chmod 644 $(DESTDIR)$(MANPREFIX)/man1/st.1
 	tic -sx st.info
+	mkdir -p $(DESTDIR)/usr/share/applications
+	cp -f st.desktop $(DESTDIR)/usr/share/applications/st.desktop
+	mkdir -p $(DESTDIR)/usr/share/icons/hicolor/scalable/apps
+	cp -f st-terminal.svg $(DESTDIR)/usr/share/icons/hicolor/scalable/apps/st-terminal.svg
+	mkdir -p $(DESTDIR)/usr/share/icons/hicolor/symbolic/apps
+	cp -f st-terminal-symbolic.svg $(DESTDIR)/usr/share/icons/hicolor/symbolic/apps/st-terminal-symbolic.svg
 	@echo Please see the README file regarding the terminfo entry of st.
 
 uninstall:
