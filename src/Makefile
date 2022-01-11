@@ -33,6 +33,7 @@ patch:
 	patch -i st-scrollback-20210507-4536f46.diff
 	patch -i st-scrollback-mouse-20191024-a2c479c.diff
 	patch -i st-scrollback-mouse-altscreen-20200416-5703aa0.diff
+	patch -i st-scrollback-mouse-selection-20220111.diff
 	patch -i st-ligatures-scrollback-20210824-0.8.4.diff
 	patch -i st-gtkthemevariant-20220110.diff
 	patch -i st-colortheme-20220110.diff
